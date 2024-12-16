@@ -11,6 +11,9 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'bgColor': '#151c2c',
+        'bgSoftColor': '#182237',
+        'textSoft': '#b7bac1',
       },
     },
   },
