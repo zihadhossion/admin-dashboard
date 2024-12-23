@@ -11,10 +11,11 @@ import {
 
 export default function Navbar() {
     const pathname = usePathname();
+    let curPath = pathname.split("/").pop();
 
     return (
         <nav className="flex items-center justify-between bg-bgSoftColor rounded-xl p-5">
-            <h1 className="text-textSoft font-bold capitalize">{pathname.split("/").pop()}</h1>
+            <h1 className="text-textSoft font-bold capitalize">{curPath ? curPath : "Home"}</h1>
             <div className="flex items-center gap-5">
                 <div className={"bg-[#2e374a] flex items-center gap-2.5 p-2.5 rounded-lg"}>
                     <MdSearch />

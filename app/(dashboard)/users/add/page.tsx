@@ -1,10 +1,11 @@
 import React from "react";
+import { addUser } from "@/lib/actions";
 
-export default function page() {
+
+export default function AddNewUserPage() {
     return (
         <section className="bg-bgSoftColor rounded-lg p-5 mt-5">
-            {/* <form action={addUser} className="flex flex-wrap justify-between"> */}
-            <form className="flex flex-wrap justify-between">
+            <form action={addUser} className="flex flex-wrap justify-between">
                 <input type="text" placeholder="username" name="username" required className="w-[45%] text-white bg-bgColor border-2 border-[#2e374a] rounded p-7 mb-7" />
                 <input type="email" placeholder="email" name="email" required className="w-[45%] text-white bg-bgColor border-2 border-[#2e374a] rounded p-7 mb-7" />
                 <input
@@ -41,5 +42,3 @@ export default function page() {
         </section>
     )
 };
-
-

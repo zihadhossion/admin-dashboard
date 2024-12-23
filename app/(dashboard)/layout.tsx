@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import React from "react";
@@ -11,6 +12,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="flex-[4] p-5">
                 <Navbar />
                 {children}
+                <Footer />
             </div>
         </div>
     )
