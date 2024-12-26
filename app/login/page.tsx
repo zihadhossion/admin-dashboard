@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { doCredentialLogin } from "@/lib/actions";
 
-const LoginForm = () => {
+export default function LoginForm() {
     const router = useRouter();
     const [error, setError] = useState("");
 
@@ -12,6 +13,7 @@ const LoginForm = () => {
         event.preventDefault();
         try {
             const formData = new FormData(event.currentTarget);
+            console.log(event.target.value);
 
             const response = await doCredentialLogin(formData);
 
@@ -27,29 +29,30 @@ const LoginForm = () => {
         }
     }
 
-
     return (
-        <>
-            <div className="text-xl text-red-500">{error}</div>
-            <form
-                className="my-5 flex flex-col items-center border p-3 border-gray-200 rounded-md"
-                onSubmit={handleSubmit}>
-                <div className="my-2">
-                    <label htmlFor="email">Email Address</label>
-                    <input className="border mx-2 border-gray-500 rounded" type="email" name="email" id="email" />
+        <section className="bg-[#F2F2F2] min-h-dvh flex flex-col justify-center items-center">
+            {error && <p className="text-xl text-red-500">{error}</p>}
+            <form onSubmit={handleSubmit}
+                className="w-96 bg-white my-5 flex flex-col items-center border p-3 border-gray-200 rounded-md shadow-md">
+                <h1 className="text-[#333] text-3xl font-bold my-10">Welcome</h1>
+                <div className="w-2/3 relative my-5">
+                    <input type="email" id="email" name="email" className="peer w-full border-b-2 border-[#adadad] text-gray-900 focus:border-blue-300 placeholder-transparent  transition-all" placeholder="" required />
+                    <label htmlFor="email"
+                        className="absolute left-0 -top-5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-5 peer-focus:text-gray-600 peer-focus:text-sm transition-all">Email</label>
                 </div>
-
-                <div className="my-2">
-                    <label htmlFor="password">Password</label>
-                    <input className="border mx-2 border-gray-500 rounded" type="password" name="password" id="password" />
+                <div className="w-2/3 relative my-5">
+                    <input type="password" id="password" name="password" className="peer w-full border-b-2 border-[#adadad] text-gray-900 placeholder-transparent focus:border-blue-300 transition-all" placeholder="" required />
+                    <label htmlFor="password"
+                        className="absolute left-0 -top-5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-5 peer-focus:text-gray-600 peer-focus:text-sm transition-all">Password</label>
                 </div>
-
-                <button type="submit" className="bg-orange-300 mt-4 rounded flex justify-center items-center w-36">
-                    Ceredential Login
+                <button type="submit" className="bg-gradient-to-r from-[#21d4fd] to-[#b721ff] hover:bg-gradient-to-l rounded px-10 py-2 mt-5 mb-2.5 transition-all">
+                    Login
                 </button>
+                <p className="text-[#666] text-xs my-3">
+                    Don't you have an account?
+                    <Link href="/register" className="text-black hover:text-green-700 mx-2 transition">Register</Link>
+                </p>
             </form>
-        </>
+        </section>
     );
 };
-
-export default LoginForm;

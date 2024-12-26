@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-
 
 export default function MenuLink({ item }: { item: any }) {
     const pathname = usePathname();

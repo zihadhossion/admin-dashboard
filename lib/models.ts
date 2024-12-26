@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
+        img: {
+            type: String,
+        },
         username: {
             type: String,
             required: true,
@@ -17,9 +20,6 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true,
-        },
-        img: {
-            type: String,
         },
         phone: {
             type: String,
@@ -69,6 +69,9 @@ const productSchema = new mongoose.Schema(
         size: {
             type: String,
         },
+        cate: {
+            type: String,
+        }
     },
     { timestamps: true }
 );

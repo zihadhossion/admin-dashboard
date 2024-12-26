@@ -6,8 +6,8 @@ export default function AddProductPage() {
         <section className="bg-bgSoftColor rounded-lg p-5 mt-5">
             <form action={addProduct} className="flex flex-wrap justify-between">
                 <input type="text" placeholder="title" name="title" className="w-[45%] text-white bg-bgColor border-2 border-[#2e374a] rounded p-7 mb-7" required />
-                <select name="cat" id="cat" className="w-[45%] text-white bg-bgColor border-2 border-[#2e374a] rounded p-7 mb-7">
-                    <option value="general">Choose a Category</option>
+                <select name="cate" id="cate" className="w-[45%] text-white bg-bgColor border-2 border-[#2e374a] rounded p-7 mb-7">
+                    <option value="">Choose a Category</option>
                     <option value="kitchen">Kitchen</option>
                     <option value="phone">Phone</option>
                     <option value="computer">Computer</option>
@@ -20,7 +20,7 @@ export default function AddProductPage() {
                     required
                     name="desc"
                     id="desc"
-                    rows="16"
+                    rows={16}
                     placeholder="Description"
                     className="w-full text-white bg-bgColor border-2 border-[#2e374a] rounded p-7 mb-7"
                 ></textarea>

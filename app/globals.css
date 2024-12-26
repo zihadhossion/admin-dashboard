@@ -27,3 +27,13 @@ body {
 button:disabled {
   @apply opacity-30 cursor-not-allowed;
 }
+
+input,
+input:focus {
+  @apply outline-none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

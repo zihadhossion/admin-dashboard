@@ -3,7 +3,7 @@ import { connectToDB } from "@/lib/mongodb";
 
 export const fetchUsers = async (q: string, page: any) => {
     const regex = new RegExp(q, "i");
-    const ITEM_PER_PAGE = 2;
+    const ITEM_PER_PAGE = 5;
 
     try {
         await connectToDB();
@@ -30,7 +30,7 @@ export const fetchUser = async (id) => {
 
 export const fetchProducts = async (q: string, page: any) => {
     const regex = new RegExp(q, "i");
-    const ITEM_PER_PAGE = 2;
+    const ITEM_PER_PAGE = 3;
 
     try {
         await connectToDB();

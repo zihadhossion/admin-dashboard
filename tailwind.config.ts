@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      transitionDuration: {
+        DEFAULT: '300ms', // Set the default transition duration to 500ms
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

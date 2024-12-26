@@ -7,7 +7,7 @@ export default function Pagination({ count }: { count: number }) {
     const { replace } = useRouter();
     const pathname = usePathname();
     const page = searchParams.get("page") || "1";
-    const ITEM_PER_PAGE = 2;
+    const ITEM_PER_PAGE = 5;
 
     const params = new URLSearchParams(searchParams);
 
@@ -23,14 +23,14 @@ export default function Pagination({ count }: { count: number }) {
     return (
         <article className="flex justify-between p-2.5">
             <button
-                className="text-bgColor bg-white p-[5px_10px] rounded-md"
+                className="text-bgColor bg-white text-sm p-[5px_10px] rounded-md"
                 disabled={!hasPrev}
                 onClick={() => handleChangePage("prev")}
             >
                 Previous
             </button>
             <button
-                className="text-bgColor bg-white p-[5px_10px] rounded-md"
+                className="text-bgColor bg-white text-sm p-[5px_10px] rounded-md"
                 disabled={!hasNext}
                 onClick={() => handleChangePage("next")}
             >

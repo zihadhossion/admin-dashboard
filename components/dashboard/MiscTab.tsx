@@ -7,7 +7,7 @@ export default function MiscTab() {
         <section className="">
             <article className="relative px-6 py-5 rounded-xl mb-5 bg-gradient-to-t from-[#182237] to-[#253352]">
                 <div className="w-1/2 h-1/2 absolute right-0 bottom-0">
-                    <Image className="object-contain opacity-20" src="/astronaut.png" alt="" fill />
+                    <Image className="object-contain opacity-20" src="/astronaut.png" alt="" fill sizes="2" />
                 </div>
                 <div className="flex flex-col gap-6">
                     <span className="font-bold">🔥 Available Now</span>

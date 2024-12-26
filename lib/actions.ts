@@ -6,10 +6,23 @@ import bcrypt from "bcrypt";
 import { Product, User } from "./models";
 import { connectToDB } from "./mongodb";
 import { signIn, signOut } from "@/auth";
+import { Readable } from "stream";
 
 
 export const addUser = async (formData: any) => {
-    const { username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
+    const { img, username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
+
+    // let image;
+    // for (const entries of Array.from(formData.entries())) {
+    //     const [key, value] = entries;
+
+    //     if (typeof value == "object") {
+    //         image = Date.now() + value.name;
+    //     }
+    //     const buffer = Buffer.from(await value.arrayBuffer());
+    //     const stream = Readable.from(buffer);
+    //     const uploadStream = buck
+    // }
 
     try {
         await connectToDB();
@@ -18,6 +31,7 @@ export const addUser = async (formData: any) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new User({
+            img,
             username,
             email,
             password: hashedPassword,
@@ -85,7 +99,7 @@ export const deleteUser = async (formData: any) => {
     revalidatePath("/users");
 }
 export const addProduct = async (formData: any) => {
-    const { title, desc, price, stock, color, size } =
+    const { title, desc, price, stock, color, size, cate } =
         Object.fromEntries(formData);
 
     try {
@@ -98,7 +112,8 @@ export const addProduct = async (formData: any) => {
             stock,
             color,
             size,
-        })
+            cate
+        });
 
         await newProduct.save();
     } catch (err) {

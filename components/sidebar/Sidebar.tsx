@@ -14,7 +14,7 @@ import MenuLink from "./MenuLink";
 import Image from "next/image";
 import { auth } from "@/auth";
 import { doLogout } from "@/lib/actions";
-import { useSession } from "next-auth/react";
+
 
 const menuItems = [
     {
@@ -37,7 +37,7 @@ const menuItems = [
             },
             {
                 title: "Transactions",
-                path: "/transactions",
+                path: "",
                 icon: <MdAttachMoney />,
             },
         ],
@@ -47,17 +47,17 @@ const menuItems = [
         list: [
             {
                 title: "Revenue",
-                path: "/revenue",
+                path: "",
                 icon: <MdWork />,
             },
             {
                 title: "Reports",
-                path: "/reports",
+                path: "",
                 icon: <MdAnalytics />,
             },
             {
                 title: "Teams",
-                path: "/teams",
+                path: "",
                 icon: <MdPeople />,
             },
         ],
@@ -67,12 +67,12 @@ const menuItems = [
         list: [
             {
                 title: "Settings",
-                path: "/settings",
+                path: "",
                 icon: <MdOutlineSettings />,
             },
             {
                 title: "Help",
-                path: "/help",
+                path: "",
                 icon: <MdHelpCenter />,
             },
         ],
@@ -86,8 +86,9 @@ export default async function Sidebar() {
 
     return (
         <section className="sticky top-10">
-            <article className="flex items-center gap-5 mb-5">
-                <Image src={"/noavatar.png"} alt="user image" className="rounded-full object-cover" width={50} height={50} />
+            <article className="flex items-center gap-3 mb-5">
+                <Image src={"/noavatar.png"} alt="user image"
+                    className="rounded-full object-cover" width={50} height={50} priority={false} />
                 <div className="flex flex-col">
                     {session?.user ? (
                         <>
@@ -106,7 +107,7 @@ export default async function Sidebar() {
                     </li>
                 ))}
             </ul>
-            <button className="w-full flex items-center gap-2.5 p-5" onClick={doLogout}>
+            <button className="w-full hover:text-white hover:bg-red-600 flex items-center gap-2.5 px-5 py-2 rounded transition" onClick={doLogout}>
                 <MdLogout />
                 Logout
             </button>

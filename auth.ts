@@ -47,27 +47,5 @@ export const {
             },
         }),
     ],
-    callbacks: {
-        async jwt({ token, user }) {
-            // When the user logs in, add user data to the token
-            if (user) {
-                token.id = user.id;
-                token.email = user.email;
-                token.username = user.username;
-                token.image = user.image;
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            // Add token data to the session
-            session.user = {
-                id: token.id,
-                email: token.email,
-                username: token.username,
-                image: token.image,
-            };
-            return session;
-        },
-    },
     secret: process.env.AUTH_SECRET,
 });

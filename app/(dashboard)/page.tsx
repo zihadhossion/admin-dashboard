@@ -7,7 +7,7 @@ import MiscTab from "@/components/dashboard/MiscTab";
 
 export default function Dashboard() {
     return (
-        <section className="flex gap-5 mt-5">
+        <section className="flex flex-wrap gap-5 mt-5">
             <article className="flex flex-[3] gap-5 flex-col">
                 <div className="flex justify-between gap-5">
                     {cards.map(item => (
