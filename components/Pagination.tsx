@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function Pagination({ count }: { count: number }) {
+export default function Pagination({ count }: { count: number; }) {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
     const pathname = usePathname();
@@ -25,15 +25,13 @@ export default function Pagination({ count }: { count: number }) {
             <button
                 className="text-bgColor bg-white text-sm p-[5px_10px] rounded-md"
                 disabled={!hasPrev}
-                onClick={() => handleChangePage("prev")}
-            >
+                onClick={() => handleChangePage("prev")}            >
                 Previous
             </button>
             <button
                 className="text-bgColor bg-white text-sm p-[5px_10px] rounded-md"
                 disabled={!hasNext}
-                onClick={() => handleChangePage("next")}
-            >
+                onClick={() => handleChangePage("next")}            >
                 Next
             </button>
         </article>

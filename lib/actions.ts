@@ -6,32 +6,45 @@ import bcrypt from "bcrypt";
 import { Product, User } from "./models";
 import { connectToDB } from "./mongodb";
 import { signIn, signOut } from "@/auth";
-import { Readable } from "stream";
+import { v2 as cloudinary } from "cloudinary";
 
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const addUser = async (formData: any) => {
-    const { img, username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
-
-    // let image;
-    // for (const entries of Array.from(formData.entries())) {
-    //     const [key, value] = entries;
-
-    //     if (typeof value == "object") {
-    //         image = Date.now() + value.name;
-    //     }
-    //     const buffer = Buffer.from(await value.arrayBuffer());
-    //     const stream = Readable.from(buffer);
-    //     const uploadStream = buck
-    // }
+    const { username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
+    const imgFile = formData.get("img");
 
     try {
         await connectToDB();
+
+        // Upload image to Cloudinary
+        let uploadedImageUrl = "";
+        if (imgFile && imgFile.size > 0) {
+            try {
+                const arrayBuffer = await imgFile.arrayBuffer();
+                const base64String = Buffer.from(arrayBuffer).toString("base64");
+                const dataURI = `data:${imgFile.type};base64,${base64String}`;
+                const uploadedResponse = await cloudinary.uploader.upload(dataURI, {
+                    folder: "admin-dashboard",
+                });
+                console.log("Cloudinary upload successful:", uploadedResponse);
+                uploadedImageUrl = uploadedResponse.secure_url;
+            } catch (uploadError: any) {
+                console.error("Cloudinary upload failed:", uploadError.message);
+                throw new Error("Image upload failed. Please try again.");
+            }
+        }
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            img,
+            img: uploadedImageUrl,
             username,
             email,
             password: hashedPassword,
@@ -51,11 +64,31 @@ export const addUser = async (formData: any) => {
 }
 export const updateUser = async (formData: any) => {
     const { id, username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
+    const imgFile = formData.get("img");
 
     try {
         await connectToDB();
 
+        // Upload image to Cloudinary
+        let uploadedImageUrl = "";
+        if (imgFile && imgFile.size > 0) {
+            try {
+                const arrayBuffer = await imgFile.arrayBuffer();
+                const base64String = Buffer.from(arrayBuffer).toString("base64");
+                const dataURI = `data:${imgFile.type};base64,${base64String}`;
+                const uploadedResponse = await cloudinary.uploader.upload(dataURI, {
+                    folder: "admin-dashboard",
+                });
+                console.log("Cloudinary upload successful:", uploadedResponse);
+                uploadedImageUrl = uploadedResponse.secure_url;
+            } catch (uploadError: any) {
+                console.error("Cloudinary upload failed:", uploadError.message);
+                throw new Error("Image upload failed. Please try again.");
+            }
+        }
+
         const updateFields = {
+            img: uploadedImageUrl,
             username,
             email,
             password,
@@ -65,17 +98,17 @@ export const updateUser = async (formData: any) => {
             isActive,
         };
 
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            updateFields.password = await bcrypt.hash(password, salt);
+        }
+
         // Remove empty or undefined fields
         (Object.keys(updateFields) as Array<keyof typeof updateFields>).forEach((key) => {
             if (updateFields[key] === "" || updateFields[key] === undefined) {
                 delete updateFields[key];
             }
         });
-        // Object.keys(updateFields).forEach((key) => {
-        //     if (updateFields[key] === "" || updateFields[key] === undefined) {
-        //         delete updateFields[key];
-        //     }
-        // });
 
         await User.findByIdAndUpdate(id, updateFields);
     } catch (err) {
@@ -101,11 +134,31 @@ export const deleteUser = async (formData: any) => {
 export const addProduct = async (formData: any) => {
     const { title, desc, price, stock, color, size, cate } =
         Object.fromEntries(formData);
+    const imgFile = formData.get("img");
 
     try {
         await connectToDB();
 
+        // Upload image to Cloudinary
+        let uploadedImageUrl = "";
+        if (imgFile && imgFile.size > 0) {
+            try {
+                const arrayBuffer = await imgFile.arrayBuffer();
+                const base64String = Buffer.from(arrayBuffer).toString("base64");
+                const dataURI = `data:${imgFile.type};base64,${base64String}`;
+                const uploadedResponse = await cloudinary.uploader.upload(dataURI, {
+                    folder: "admin-dashboard",
+                });
+                console.log("Cloudinary upload successful:", uploadedResponse);
+                uploadedImageUrl = uploadedResponse.secure_url;
+            } catch (uploadError: any) {
+                console.error("Cloudinary upload failed:", uploadError.message);
+                throw new Error("Image upload failed. Please try again.");
+            }
+        }
+
         const newProduct = new Product({
+            img: uploadedImageUrl,
             title,
             desc,
             price,
@@ -126,11 +179,33 @@ export const addProduct = async (formData: any) => {
 export const updateProduct = async (formData: any) => {
     const { id, title, desc, price, stock, color, size } =
         Object.fromEntries(formData);
+    const imgFile = formData.get("img");
+
 
     try {
         await connectToDB();
 
+        // Upload image to Cloudinary
+        let uploadedImageUrl = "";
+        if (imgFile && imgFile.size > 0) {
+            try {
+                const arrayBuffer = await imgFile.arrayBuffer();
+                const base64String = Buffer.from(arrayBuffer).toString("base64");
+                const dataURI = `data:${imgFile.type};base64,${base64String}`;
+                const uploadedResponse = await cloudinary.uploader.upload(dataURI, {
+                    folder: "admin-dashboard",
+                });
+                console.log("Cloudinary upload successful:", uploadedResponse);
+                uploadedImageUrl = uploadedResponse.secure_url;
+            } catch (uploadError: any) {
+                console.error("Cloudinary upload failed:", uploadError.message);
+                throw new Error("Image upload failed. Please try again.");
+            }
+        }
+
+
         const updateFields = {
+            img: uploadedImageUrl,
             title,
             desc,
             price,
@@ -138,8 +213,6 @@ export const updateProduct = async (formData: any) => {
             color,
             size,
         };
-
-
 
         // Remove empty or undefined fields
         (Object.keys(updateFields) as Array<keyof typeof updateFields>).forEach((key) => {

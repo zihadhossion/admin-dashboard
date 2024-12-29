@@ -1,6 +1,7 @@
+import { IUser } from "@/types/dbtypes";
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema<IUser>(
     {
         img: {
             type: String,
@@ -57,7 +58,6 @@ const productSchema = new mongoose.Schema(
         },
         stock: {
             type: Number,
-            required: true,
             min: 0,
         },
         img: {

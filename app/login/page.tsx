@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { doCredentialLogin } from "@/lib/actions";
@@ -9,12 +9,10 @@ export default function LoginForm() {
     const router = useRouter();
     const [error, setError] = useState("");
 
-    async function handleSubmit(event: any) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         try {
             const formData = new FormData(event.currentTarget);
-            console.log(event.target.value);
-
             const response = await doCredentialLogin(formData);
 
             if (!!response.error) {
@@ -45,7 +43,7 @@ export default function LoginForm() {
                     <label htmlFor="password"
                         className="absolute left-0 -top-5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-5 peer-focus:text-gray-600 peer-focus:text-sm transition-all">Password</label>
                 </div>
-                <button type="submit" className="bg-gradient-to-r from-[#21d4fd] to-[#b721ff] hover:bg-gradient-to-l rounded px-10 py-2 mt-5 mb-2.5 transition-all">
+                <button type="submit" className="text-white bg-gradient-to-r from-[#21d4fd] to-[#b721ff] hover:bg-gradient-to-l rounded px-10 py-2 mt-5 mb-2.5 transition-all">
                     Login
                 </button>
                 <p className="text-[#666] text-xs my-3">

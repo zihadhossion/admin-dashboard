@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import Search from "@/components/Search";
 import Image from "next/image";
 import { fetchUsers } from "@/data/data";
-import Pagination from "@/components/Pagination";
 import { deleteUser } from "@/lib/actions";
+import Search from "@/components/Search";
+import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 
 interface FetchUsersResponse {
@@ -28,7 +28,7 @@ export default async function UserPage({ searchParams }: { searchParams: { q?: s
                     <button className="text-sm text-white bg-indigo-700 hover:bg-blue-700 p-2.5 rounded-md transition">Add User</button>
                 </Link>
             </div>
-            <Table tableHead={tableHeaders}>
+            {users?.length > 0 ? <Table tableHead={tableHeaders}>
                 {users.map((user: any) => (
                     <tr key={user.id}>
                         <td>
@@ -65,7 +65,7 @@ export default async function UserPage({ searchParams }: { searchParams: { q?: s
                         </td>
                     </tr>
                 ))}
-            </Table>
+            </Table> : <p className="w-full my-5">User not found</p>}
             <Pagination count={count} />
         </section>
     )

@@ -9,11 +9,12 @@ const { auth } = NextAuth(authConfig);
 const LOGIN = "/login";
 const REGISTER = "/register";
 
-export async function middleware(request) {
+export async function middleware(request: any) {
     const { nextUrl, } = request;
     const pathname = nextUrl.pathname;
     // Exclude public routes
     const publicRoutes = [LOGIN, REGISTER];
+
     if (publicRoutes.includes(pathname)) {
         return NextResponse.next();
     }

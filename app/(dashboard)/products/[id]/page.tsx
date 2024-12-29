@@ -8,15 +8,22 @@ export default async function ProductDetailPage({ params }: { params: { id: numb
     const product = await fetchProduct(id);
 
     return (
-        <section className="flex gap-12 mt-5">
-            <div className="flex-1 text-textSoft bg-bgSoftColor font-bold p-5 rounded-lg">
-                <div className="w-full h-72 relative rounded-lg overflow-hidden mb-5">
-                    <Image src="/noavatar.png" alt="user avatar" width={288} height={288} priority={false} />
+        <section className="mt-5">
+            <form action={updateProduct} className="flex gap-10">
+                <div className="flex-1 text-textSoft bg-bgSoftColor p-5 rounded-lg">
+                    <div className="w-full h-72 relative rounded-lg overflow-hidden mb-5">
+                        <Image src={product?.img || "/noproduct.jpg"}
+                            alt="user avatar" width={288} height={288} priority={false} className="rounded-md" />
+                    </div>
+                    <input
+                        type="file"
+                        name="img"
+                        id="img"
+                        accept="image/*"
+                        className="w-full block"
+                    />
                 </div>
-                {product.title}
-            </div>
-            <div className="flex-[3] bg-bgSoftColor p-5 rounded-lg">
-                <form action={updateProduct} className="flex flex-col">
+                <div className="flex-[3] bg-bgSoftColor p-5 rounded-lg">
                     <input type="hidden" name="id" value={product.id} className="text-white bg-bgColor border-2 border-[#2e374a] rounded p-5 my-2.5" />
                     <div className="grid grid-cols-12 gap-4">
                         <FormRow label="title" divStyle="col-[1_/_10]">
@@ -66,10 +73,10 @@ export default async function ProductDetailPage({ params }: { params: { id: numb
                             ></textarea>
                         </FormRow>
                     </div>
-                    <button className=" text-white bg-teal-700 p-5 rounded mt-5">
-                        Update</button>
-                </form>
-            </div>
+                    <button type="submit" className="w-full text-white bg-teal-700 hover:bg-teal-600 px-7 py-3 my-5 rounded transition">
+                        Update Product</button>
+                </div>
+            </form>
         </section>
     )
 };

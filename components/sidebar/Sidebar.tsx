@@ -1,3 +1,7 @@
+import Image from "next/image";
+import { auth } from "@/auth";
+import { doLogout } from "@/lib/actions";
+import MenuLink from "./MenuLink";
 import {
     MdDashboard,
     MdSupervisedUserCircle,
@@ -10,13 +14,10 @@ import {
     MdHelpCenter,
     MdLogout,
 } from "react-icons/md";
-import MenuLink from "./MenuLink";
-import Image from "next/image";
-import { auth } from "@/auth";
-import { doLogout } from "@/lib/actions";
+import { IUser, MenuLinkType } from "@/types/dbtypes";
 
 
-const menuItems = [
+const menuItems: { title: string; list: MenuLinkType[] }[] = [
     {
         title: "Pages",
         list: [
@@ -67,7 +68,7 @@ const menuItems = [
         list: [
             {
                 title: "Settings",
-                path: "",
+                path: "/settings",
                 icon: <MdOutlineSettings />,
             },
             {
@@ -82,12 +83,10 @@ const menuItems = [
 export default async function Sidebar() {
     const session = await auth();
 
-    console.log("user session :", session?.user);
-
     return (
         <section className="sticky top-10">
             <article className="flex items-center gap-3 mb-5">
-                <Image src={"/noavatar.png"} alt="user image"
+                <Image src={session?.user?.img || "/noavatar.png"} alt="user image"
                     className="rounded-full object-cover" width={50} height={50} priority={false} />
                 <div className="flex flex-col">
                     {session?.user ? (

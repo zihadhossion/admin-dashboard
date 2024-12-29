@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import Search from "@/components/Search";
 import Image from "next/image";
-import Pagination from "@/components/Pagination";
 import { fetchProducts } from "@/data/data";
 import { deleteProduct } from "@/lib/actions";
+import Search from "@/components/Search";
+import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 
 interface FetchUsersResponse {
@@ -28,7 +28,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { q
                     <button className="text-sm text-white bg-[#5d57c9] p-2.5 rounded-md">Add Product</button>
                 </Link>
             </div>
-            <Table tableHead={tableHeaders}>
+            {products.length > 0 ? <Table tableHead={tableHeaders}>
                 {products.map((product) => (
                     <tr key={product.id}>
                         <td>
@@ -64,7 +64,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { q
                         </td>
                     </tr>
                 ))}
-            </Table>
+            </Table> : <p className="w-full my-5">Product not found</p>}
             <Pagination count={count} />
         </section>
     )

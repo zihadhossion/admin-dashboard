@@ -1,5 +1,6 @@
 import { Product, User } from "@/lib/models";
 import { connectToDB } from "@/lib/mongodb";
+import { CardProps, TransactionType } from "@/types/dbtypes";
 
 export const fetchUsers = async (q: string, page: any) => {
     const regex = new RegExp(q, "i");
@@ -17,7 +18,7 @@ export const fetchUsers = async (q: string, page: any) => {
         return { count: 0, users: [] };
     }
 };
-export const fetchUser = async (id) => {
+export const fetchUser = async (id: any) => {
     try {
         await connectToDB();
         const user = await User.findById(id);
@@ -44,7 +45,7 @@ export const fetchProducts = async (q: string, page: any) => {
         return { count: 0, products: [] };
     }
 };
-export const fetchProduct = async (id) => {
+export const fetchProduct = async (id: any) => {
     try {
         await connectToDB();
         const product = await Product.findById(id);
@@ -54,9 +55,6 @@ export const fetchProduct = async (id) => {
         return { product: [] };
     }
 }
-
-
-import { CardProps } from "@/types/dbtypes";
 
 // DUMMY DATA
 export const cards: CardProps[] = [
@@ -79,3 +77,30 @@ export const cards: CardProps[] = [
         change: 18,
     },
 ];
+
+export const transactionData: TransactionType[] = [
+    {
+        name: "jhon doe",
+        status: "pending",
+        date: new Date("2024-12-20T14:51:42.188+00:00"),
+        amount: 32.100
+    },
+    {
+        name: "jhon doe",
+        status: "cancelled",
+        date: new Date("2024-12-22T14:51:42.188+00:00"),
+        amount: 23.200
+    },
+    {
+        name: "jhon doe",
+        status: "pending",
+        date: new Date("2024-12-27T14:51:42.188+00:00"),
+        amount: 33.200
+    },
+    {
+        name: "jhon doe",
+        status: "done",
+        date: new Date("2024-12-12T14:51:42.188+00:00"),
+        amount: 43.200
+    },
+]

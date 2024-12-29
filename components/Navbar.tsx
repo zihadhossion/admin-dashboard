@@ -5,7 +5,6 @@ import {
     MdNotifications,
     MdOutlineChat,
     MdPublic,
-    MdSearch,
 } from "react-icons/md";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
@@ -14,13 +13,11 @@ export default function Navbar() {
     const pathname = usePathname();
     const router = useRouter();
 
-    // Split the path into segments
     const pathSegments = pathname.split("/").filter(Boolean);
     const curPath = pathSegments[pathSegments.length - 1];
 
     const handleBack = () => {
-        const previousPath = pathSegments.slice(0, -1).join("/") || "/";
-        router.push(`/${previousPath}`);
+        router.back();
     };
 
     return (

@@ -5,8 +5,8 @@ import React from "react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex">
-            <div className="bg-bgSoftColor flex-1 p-5 min-h-dvh">
+        <main className="flex">
+            <div className="flex-1 bg-bgSoftColor p-5 min-h-dvh">
                 <Sidebar />
             </div>
             <div className="flex-[4] p-5">
@@ -14,6 +14,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {children}
                 <Footer />
             </div>
-        </div>
+        </main>
     )
 };

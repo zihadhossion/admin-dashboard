@@ -5,22 +5,22 @@ export const authConfig = {
     providers: [],
     callbacks: {
         async jwt({ token, user }) {
-            // When the user logs in, add user data to the token
+            // console.log("User data: ", user);
             if (user) {
                 token.id = user.id;
+                token.img = user.img;
                 token.username = user.username;
                 token.email = user.email;
-                token.image = user.image;
             }
             return token;
         },
         async session({ session, token }) {
-            // Add token data to the session
+            // console.log("Token data: ", token);
             session.user = {
                 id: token.id,
-                email: token.email,
+                img: token.img,
                 username: token.username,
-                image: token.image,
+                email: token.email,
             };
             return session;
         },

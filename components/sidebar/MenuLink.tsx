@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MenuLinkType } from "@/types/dbtypes";
 
-export default function MenuLink({ item }: { item: any }) {
+export default function MenuLink({ item }: { item: MenuLinkType }) {
     const pathname = usePathname();
 
     return (

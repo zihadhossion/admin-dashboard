@@ -1,9 +1,9 @@
 import React from "react";
-import Card from "@/components/dashboard/Card";
-import DashChart from "@/components/dashboard/DashChart";
-import Transactions from "@/components/dashboard/Transactions";
 import { cards } from "@/data/data";
-import MiscTab from "@/components/dashboard/MiscTab";
+import Card from "@/components/Card";
+import DashChart from "@/components/DashChart";
+import Transactions from "@/components/Transactions";
+import MiscTab from "@/components/MiscTab";
 
 export default function Dashboard() {
     return (
