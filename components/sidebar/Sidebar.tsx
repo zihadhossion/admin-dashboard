@@ -14,7 +14,7 @@ import {
     MdHelpCenter,
     MdLogout,
 } from "react-icons/md";
-import { IUser, MenuLinkType } from "@/types/dbtypes";
+import { MenuLinkType } from "@/types/dbtypes";
 
 
 const menuItems: { title: string; list: MenuLinkType[] }[] = [
@@ -83,15 +83,17 @@ const menuItems: { title: string; list: MenuLinkType[] }[] = [
 export default async function Sidebar() {
     const session = await auth();
 
+    const { img, username } = session?.user?._doc;
+
     return (
         <section className="sticky top-10">
             <article className="flex items-center gap-3 mb-5">
-                <Image src={session?.user?.img || "/noavatar.png"} alt="user image"
+                <Image src={img || "/noavatar.png"} alt="user image"
                     className="rounded-full object-cover" width={50} height={50} priority={false} />
                 <div className="flex flex-col">
                     {session?.user ? (
                         <>
-                            <span className="font-medium capitalize">{session?.user?.username}</span>
+                            <span className="font-medium capitalize">{username}</span>
                         </>) : <span className="font-medium">Jhon Doe</span>}
                     <span className="text-xs text-[#b7bac1]">Administrator</span>
                 </div>

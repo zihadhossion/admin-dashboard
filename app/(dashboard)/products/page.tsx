@@ -6,15 +6,16 @@ import { deleteProduct } from "@/lib/actions";
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
+import { ProductType } from "@/types/dbtypes";
 
 interface FetchUsersResponse {
-    products: any[];
+    products: ProductType[];
     count: number;
 }
 
 const tableHeaders = ["Title", "Description", "Price", "Created At", "Stock", "Action"];
 
-export default async function ProductsPage({ searchParams }: { searchParams: { q?: string; page?: number; } }) {
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ q?: string; page?: number; }> }) {
     const params = await searchParams;
     const q = params?.q || "";
     const page = params?.page || 1;

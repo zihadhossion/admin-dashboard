@@ -6,15 +6,16 @@ import { deleteUser } from "@/lib/actions";
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
+import { IUser } from "@/types/dbtypes";
 
 interface FetchUsersResponse {
-    users: any[];
+    users: IUser[];
     count: number;
 }
 
 const tableHeaders = ["Name", "Email", "Created At", "Role", "Status", "Action"];
 
-export default async function UserPage({ searchParams }: { searchParams: { q?: string; page?: number; } }) {
+export default async function UserPage({ searchParams }: { searchParams: Promise<{ q?: string; page?: number; }> }) {
     const params = await searchParams;
     const q = params?.q || "";
     const page = params?.page || 1;
@@ -29,7 +30,7 @@ export default async function UserPage({ searchParams }: { searchParams: { q?: s
                 </Link>
             </div>
             {users?.length > 0 ? <Table tableHead={tableHeaders}>
-                {users.map((user: any) => (
+                {users.map((user: IUser) => (
                     <tr key={user.id}>
                         <td>
                             <div className="flex items-center gap-2.5">

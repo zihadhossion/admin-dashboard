@@ -3,9 +3,6 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema<IUser>(
     {
-        img: {
-            type: String,
-        },
         username: {
             type: String,
             required: true,
@@ -21,6 +18,9 @@ const userSchema = new mongoose.Schema<IUser>(
         password: {
             type: String,
             required: true,
+        },
+        img: {
+            type: String,
         },
         phone: {
             type: String,

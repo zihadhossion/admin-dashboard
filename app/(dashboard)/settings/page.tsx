@@ -3,7 +3,7 @@ import Profile from "@/components/Profile";
 
 export default async function SettingPage() {
     const session = await auth();
-    let userId = session?.user?.id;
+    const userId = session?.user?.id;
 
     if (!userId) return;
 

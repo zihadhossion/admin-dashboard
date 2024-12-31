@@ -14,9 +14,12 @@ export default function Pagination({ count }: { count: number; }) {
     const hasPrev = ITEM_PER_PAGE * (parseInt(page) - 1) > 0;
     const hasNext = ITEM_PER_PAGE * (parseInt(page) - 1) + ITEM_PER_PAGE < count;
 
-    function handleChangePage(type: string) {
-        type === "prev" ? params.set("page", (parseInt(page) - 1).toString()) :
-            params.set("page", (parseInt(page) + 1).toString());
+    function handleChangePage(btnType: string) {
+        if (btnType === "prev") {
+            params.set("page", (parseInt(page) - 1).toString())
+        } else {
+            params.set("page", (parseInt(page) + 1).toString())
+        }
         replace(`${pathname}?${params}`);
     }
 

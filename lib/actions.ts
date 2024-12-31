@@ -15,7 +15,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const addUser = async (formData: any) => {
+export const addUser = async (formData) => {
     const { username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
     const imgFile = formData.get("img");
 
@@ -43,6 +43,9 @@ export const addUser = async (formData: any) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
+        const existingUser = await User.findOne({ email });
+        if (existingUser) throw new Error("User already exists");
+
         const newUser = new User({
             img: uploadedImageUrl,
             username,
@@ -62,7 +65,7 @@ export const addUser = async (formData: any) => {
     revalidatePath("/users");
     redirect("/users");
 }
-export const updateUser = async (formData: any) => {
+export const updateUser = async (formData) => {
     const { id, username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData);
     const imgFile = formData.get("img");
 
@@ -118,7 +121,7 @@ export const updateUser = async (formData: any) => {
     revalidatePath("/users");
     redirect("/users");
 }
-export const deleteUser = async (formData: any) => {
+export const deleteUser = async (formData) => {
     const { id } = Object.fromEntries(formData);
 
     try {
@@ -131,7 +134,7 @@ export const deleteUser = async (formData: any) => {
 
     revalidatePath("/users");
 }
-export const addProduct = async (formData: any) => {
+export const addProduct = async (formData) => {
     const { title, desc, price, stock, color, size, cate } =
         Object.fromEntries(formData);
     const imgFile = formData.get("img");
@@ -176,7 +179,7 @@ export const addProduct = async (formData: any) => {
     revalidatePath("/products");
     redirect("/products");
 }
-export const updateProduct = async (formData: any) => {
+export const updateProduct = async (formData) => {
     const { id, title, desc, price, stock, color, size } =
         Object.fromEntries(formData);
     const imgFile = formData.get("img");
@@ -234,7 +237,7 @@ export const updateProduct = async (formData: any) => {
     revalidatePath("/products");
     redirect("/products");
 }
-export const deleteProduct = async (formData: any) => {
+export const deleteProduct = async (formData) => {
     const { id } = Object.fromEntries(formData);
 
     try {

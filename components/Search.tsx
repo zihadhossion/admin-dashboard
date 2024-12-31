@@ -12,10 +12,12 @@ export default function Search({ placeHolder }: { placeHolder: string }) {
     const handleSearch = useDebouncedCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const params = new URLSearchParams(searchParams);
         params.set("page", "1");
-        let searchItem = e.target.value;
+        const searchItem = e.target.value;
 
         if (searchItem) {
-            searchItem.length > 1 && params.set("q", searchItem);
+            if (searchItem.length > 1) {
+                params.set("q", searchItem);
+            }
         } else {
             params.delete("q");
         }

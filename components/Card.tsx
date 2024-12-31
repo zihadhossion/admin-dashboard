@@ -1,4 +1,3 @@
-import React from "react";
 import { MdSupervisedUserCircle } from "react-icons/md";
 import { CardProps } from "@/types/dbtypes";
 

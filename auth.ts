@@ -28,24 +28,36 @@ export const {
                         email: credentials?.email
                     })
                     if (user) {
+                        const password = credentials.password as string;
                         const isMatch = await bcrypt.compare(
-                            credentials.password,
+                            password,
                             user.password
                         );
 
-                        if (isMatch) {
-                            return user;
-                        } else {
-                            throw new Error("Email or Password is not correct");
+                        if (!isMatch) {
+                            throw new Error("Invalid password");
                         }
+                        return user;
                     } else {
                         throw new Error("User not found");
                     }
-                } catch (error) {
-                    throw new Error(error);
+                }
+                catch (error) {
+                    console.error(error);
                 }
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            // console.log("User data: ", user);
+            return { ...token, ...user }
+        },
+        async session({ session, token }) {
+            // console.log("Token data: ", token);
+            session.user = token as any;
+            return session;
+        },
+    },
     secret: process.env.AUTH_SECRET,
 });

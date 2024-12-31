@@ -32,3 +32,16 @@ export interface MenuLinkType {
     path: string;
     icon: React.ReactNode;
 }
+
+export interface ProductType {
+    id: string;
+    title: string;
+    desc: string;
+    price: number;
+    stock: number;
+    img?: string;
+    color?: string;
+    size?: string;
+    cate?: string;
+    createdAt?: Date;
+}

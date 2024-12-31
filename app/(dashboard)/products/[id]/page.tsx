@@ -3,7 +3,7 @@ import { fetchProduct } from "@/data/data";
 import { updateProduct } from "@/lib/actions";
 import FormRow from "@/components/FormRow";
 
-export default async function ProductDetailPage({ params }: { params: { id: number } }) {
+export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const product = await fetchProduct(id);
 
